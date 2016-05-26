@@ -8,6 +8,8 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using IdentityServer4.Core.Hosting;
 
 namespace Host.UI.Login
 {
@@ -16,17 +18,27 @@ namespace Host.UI.Login
         private readonly LoginService _loginService;
         private readonly SignInInteraction _signInInteraction;
 
+        private readonly ILogger<LoginController> _logger;
+        
+        private IdentityServerContext _context;
+
         public LoginController(
             LoginService loginService, 
-            SignInInteraction signInInteraction)
+            SignInInteraction signInInteraction,
+            ILogger<LoginController> logger,
+            IdentityServerContext context)
         {
             _loginService = loginService;
             _signInInteraction = signInInteraction;
+            _logger = logger;
+            _context = context;
         }
 
         [HttpGet(Constants.RoutePaths.Login, Name = "Login")]
         public async Task<IActionResult> Index(string id)
         {
+            _logger.LogDebug("Login started - base url = " + _context.GetIdentityServerBaseUrl());
+            
             var vm = new LoginViewModel();
 
             if (id != null)

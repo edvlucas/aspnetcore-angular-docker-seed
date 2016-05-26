@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
+using IdentityServer4.Core.Hosting;
+using System;
 
 namespace Host
 {
@@ -68,10 +71,49 @@ namespace Host
                 ClientSecret = "HsnwJri_53zn7VcO1Fm7THBb"
             });
 
-            app.UseIdentityServer();
-
+            app.UseCors(String.Empty);
+            app.ConfigureCookies();
+            app.UseMiddleware<MyBaseUrlMiddleware>();
+            app.UseMiddleware<IdentityServerMiddleware>();
+            
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
         }
+    }
+    
+    public class MyBaseUrlMiddleware
+    {
+        private readonly RequestDelegate _next;
+        
+        public MyBaseUrlMiddleware(RequestDelegate next)
+        {
+            _next = next;
+        }
+
+        public async Task Invoke(HttpContext context, IdentityServerContext idsrvContext)
+        {
+            var request = context.Request;
+
+            // var host = request.Scheme + "://" + request.Host.Value;
+            // idsrvContext.SetHost(host);
+            // idsrvContext.SetBasePath(RemoveTrailingSlash(request.PathBase.Value));
+
+            idsrvContext.SetHost("http://docker");
+            idsrvContext.SetBasePath("");
+
+
+            await _next(context);
+        }
+        
+        public  string RemoveTrailingSlash(string url)
+        {
+            if (url != null && url.EndsWith("/"))
+            {
+                url = url.Substring(0, url.Length - 1);
+            }
+
+            return url;
+        }
+
     }
 }

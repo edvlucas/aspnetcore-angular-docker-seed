@@ -37,7 +37,7 @@ namespace MyApplication.Web
             app.UseDeveloperExceptionPage();
             app.UseDefaultFiles();    
             app.UseStaticFiles();
-            loggerFactory.AddConsole(minLevel: LogLevel.Debug);
+            loggerFactory.AddConsole(minLevel: LogLevel.Trace);
             loggerFactory.AddDebug();
         }
     }

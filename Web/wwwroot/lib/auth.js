@@ -1,5 +1,5 @@
 var config = {
-    authority: "http://docker/",
+    authority: "http://docker",
     client_id: "js_oidc",
     redirect_uri: window.location.protocol + "//" + window.location.host + "/index.html",
     post_logout_redirect_uri: window.location.protocol + "//" + window.location.host + "/index.html",
@@ -62,35 +62,35 @@ function authorize(scope, response_type) {
 function logout() {
     mgr.redirectForLogout();
 }
-function callApi() {
-    var xhr = new XMLHttpRequest();
-    xhr.onload = function (e) {
-        if (xhr.status >= 400) {
-            display("#ajax-result", {
-                status: xhr.status,
-                statusText: xhr.statusText,
-                wwwAuthenticate: xhr.getResponseHeader("WWW-Authenticate")
-            });
-        }
-        else {
-            display("#ajax-result", xhr.response);
-        }
-    };
-    xhr.onerror = function () {
-        if (xhr.status === 401) {
-            mgr.removeToken();
-            showTokens();
-        }
-        display("#ajax-result", {
-            status: xhr.status,
-            statusText: xhr.statusText,
-            wwwAuthenticate: xhr.getResponseHeader("WWW-Authenticate")
-        });
-    };
-    xhr.open("GET", "http://localhost:3721/identity", true);
-    xhr.setRequestHeader("Authorization", "Bearer " + mgr.access_token);
-    xhr.send();
-}
+// function callApi() {
+//     var xhr = new XMLHttpRequest();
+//     xhr.onload = function (e) {
+//         if (xhr.status >= 400) {
+//             display("#ajax-result", {
+//                 status: xhr.status,
+//                 statusText: xhr.statusText,
+//                 wwwAuthenticate: xhr.getResponseHeader("WWW-Authenticate")
+//             });
+//         }
+//         else {
+//             display("#ajax-result", xhr.response);
+//         }
+//     };
+//     xhr.onerror = function () {
+//         if (xhr.status === 401) {
+//             mgr.removeToken();
+//             showTokens();
+//         }
+//         display("#ajax-result", {
+//             status: xhr.status,
+//             statusText: xhr.statusText,
+//             wwwAuthenticate: xhr.getResponseHeader("WWW-Authenticate")
+//         });
+//     };
+//     xhr.open("GET", "http://localhost:3721/identity", true);
+//     xhr.setRequestHeader("Authorization", "Bearer " + mgr.access_token);
+//     xhr.send();
+// }
 if (window.location.hash) {
     handleCallback();
 }

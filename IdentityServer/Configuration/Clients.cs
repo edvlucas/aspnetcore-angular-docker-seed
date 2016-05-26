@@ -160,23 +160,23 @@ namespace Host.Configuration
                 {
                     ClientId = "js_oidc",
                     ClientName = "JavaScript OIDC Client",
-                    ClientUri = "http://identityserver.io",
+                    ClientUri = "http://docker",
 
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
                     RedirectUris = new List<string>
                     {
-                        "http://localhost:7017/index.html",
-                        "http://localhost:7017/silent_renew.html",
+                        "http://docker/index.html",
+                        "http://docker/silent_renew.html",
                     },
                     PostLogoutRedirectUris = new List<string>
                     {
-                        "http://localhost:7017/index.html",
+                        "http://docker/index.html",
                     },
 
                     AllowedCorsOrigins = new List<string>
                     {
-                        "http://localhost:7017"
+                        "http://docker:7017"
                     },
 
                     AllowedScopes = new List<string>
