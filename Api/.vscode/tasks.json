@@ -1,17 +1,36 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
     "version": "0.1.0",
-    "command": "dotnet",
-    "isShellCommand": true,
-    "args": [],
+    "command": "powershell",
+    "args": [   
+        "-ExecutionPolicy",
+        "Unrestricted",
+        "-NoProfile",
+        "-File"
+    ],
+    "showOutput": "always",
     "tasks": [
         {
-            "taskName": "build",
-            "args": [ ],
+            "taskName": "scripts\\GetClrDbg.ps1",
+            "showOutput": "always",
+            "isBuildCommand": false,
+            "args": [
+                "-Version","latest","-RuntimeID","ubuntu.14.04-x64","-InstallPath","..\\clrdbg"
+            ]
+        },
+        {
+            "taskName": "scripts\\Build.ps1",
+            "showOutput": "always",
             "isBuildCommand": true,
-            "showOutput": "silent",
-            "problemMatcher": "$msCompile"
+            "args":[
+                "build"
+            ]
+        },
+        {
+            "taskName": "scripts\\BuildDocker.ps1",
+            "showOutput": "always",
+            "isBuildCommand": false,
+            "args":[]
         }
+
     ]
 }

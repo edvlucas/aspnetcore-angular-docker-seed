@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Angular 2 App | ng2-webpack</title>
+  <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+
+  <base href="./">
+</head>
+
+<body>
+  <my-app>Loading...</my-app>
+</body>
+
+<!-- Webpack will insert the bundles below, using the HtmlWebpackPlugin and copy the html with scripts to the dist folder -->
+
+<div class="container">
+  <header class="page-header">
+    <h1>JavaScript Oidc Client</h1>
+  </header>
+
+  <div class="row">
+    <ul class="list-unstyled list-inline">
+      <li><a class="btn btn-primary" href="index.html">Home</a></li>
+      <li><button class="btn btn-default request" data-scope='openid' data-type='id_token'>Login Only</button></li>
+      <li><button class="btn btn-default request" data-scope='openid profile email' data-type='id_token'>Login With Profile</button></li>
+      <li><button class="btn btn-default request" data-scope='openid profile email api1 api2' data-type='id_token token'>Login With Profile and Access Token</button></li>
+      <li><button class="btn btn-default request" data-scope='api1 api2' data-type='token'>Access Token Only</button></li>
+      <li><button class="btn btn-primary call">Call Service</button></li>
+      <li><button class="btn btn-info logout">Logout</button></li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <ul class="list-unstyled list-inline">
+    </ul>
+  </div>
+
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">Authorization Response</div>
+      <div class="panel-body">
+        <pre id="response"></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">ID Token Contents</div>
+        <div class="panel-body">
+          <pre id="id-token"></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Access Token</div>
+        <div class="panel-body">
+          <pre id="access-token"></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Ajax Result</div>
+        <div class="panel-body">
+          <pre id="ajax-result"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/lib/oidc-token-manager.js"></script>
+<script src="/lib/auth.js"></script>
+<iframe id="rp" style="display:none"></iframe>
+
+</html>

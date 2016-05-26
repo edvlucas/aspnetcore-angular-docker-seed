@@ -5,7 +5,7 @@
             "name": ".NET Core Launch (console)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "scripts\\Build.ps1",
             "program": "${workspaceRoot}/bin/Debug/netcoreapp1.0/api.dll",
             "args": [],
             "cwd": "${workspaceRoot}",
@@ -15,7 +15,7 @@
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "scripts\\Build.ps1",
             "program": "${workspaceRoot}/bin/Debug/netcoreapp1.0/api.dll",
             "args": [],
             "cwd": "${workspaceRoot}",
@@ -25,7 +25,7 @@
                 "args": "${auto-detect-url}",
                 "windows": {
                     "command": "cmd.exe",
-                    "args": "/C start ${auto-detect-url}"
+                    "args": "/C start ${auto-detect-url}/values"
                 },
                 "osx": {
                     "command": "open"

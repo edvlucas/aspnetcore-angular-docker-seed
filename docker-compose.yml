@@ -1,0 +1,44 @@
+version: '2'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.
+    environment:
+      - NGINX_HOST=foobar.com
+      - NGINX_PORT=80    
+    ports:
+      - "80:80"
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile.
+    environment:
+      - REMOTE_DEBUGGING=$false
+    ports:
+      - "2000:2000"
+    volumes:
+      - ./web:/app
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.
+    environment:
+      - REMOTE_DEBUGGING=$false
+    ports:
+      - "2001:2001"
+    volumes:
+      - ./api:/app
+  identity:
+    build:
+      context: ./IdentityServer
+      dockerfile: Dockerfile.
+    environment:
+      - REMOTE_DEBUGGING=$false
+    ports:
+      - "2010:2010"
+    volumes:
+      - ./IdentityServer:/app
+  
+      
