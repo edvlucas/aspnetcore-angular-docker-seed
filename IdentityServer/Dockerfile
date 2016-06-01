@@ -1,16 +1,2 @@
-FROM sequentia/dotnet-watch-core-rc2-angular2
-
-VOLUME /app
-WORKDIR /app
-
-# Configure the listening port to 80
-ENV ASPNETCORE_SERVER.URLS http://*:2010
-ENV ASPNETCORE_ENVIRONMENT Development
-ENV ASPNETCORE_APPLICATIONNAME IdentityServer4
-ENV ASPNETCORE_DETAILEDERRORS 1
-#ENV ASPNET_WEBROOT
-#ENV ASPNETCORE_SERVER
-
-EXPOSE 2010
-
+FROM sequentia/dotnet-watch-core-rc2
 ENTRYPOINT ["/startscript.sh"]

@@ -6,8 +6,7 @@ services:
       context: ./nginx
       dockerfile: Dockerfile.
     environment:
-      - NGINX_HOST=foobar.com
-      - NGINX_PORT=80    
+      NGINX_PORT: 80
     ports:
       - "80:80"
   web:
@@ -15,9 +14,8 @@ services:
       context: ./web
       dockerfile: Dockerfile.
     environment:
-      - REMOTE_DEBUGGING=$false
-    ports:
-      - "2000:2000"
+      ASPNETCORE_URLS: http://*:2000
+      ASPNETCORE_ENVIRONMENT: Development
     volumes:
       - ./web:/app
   api:
@@ -25,9 +23,8 @@ services:
       context: ./api
       dockerfile: Dockerfile.
     environment:
-      - REMOTE_DEBUGGING=$false
-    ports:
-      - "2001:2001"
+      ASPNETCORE_URLS: http://*:2001
+      ASPNETCORE_ENVIRONMENT: Development
     volumes:
       - ./api:/app
   identity:
@@ -35,9 +32,9 @@ services:
       context: ./IdentityServer
       dockerfile: Dockerfile.
     environment:
-      - REMOTE_DEBUGGING=$false
-    ports:
-      - "2010:2010"
+      EXTERNAL_URL: http://docker
+      ASPNETCORE_URLS: http://*:2010
+      ASPNETCORE_ENVIRONMENT: Development
     volumes:
       - ./IdentityServer:/app
   

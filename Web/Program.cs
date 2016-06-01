@@ -11,7 +11,7 @@ namespace MyApplication.Web
             var host = new WebHostBuilder()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseWebRoot("wwwroot")
-                .UseUrls(Environment.GetEnvironmentVariable("ASPNETCORE_SERVER.URLS") ?? String.Empty)
+                .UseUrls(Environment.GetEnvironmentVariable("ASPNETCORE_URLS") ?? String.Empty)
                 .UseKestrel()
                 .UseStartup<Startup>()
                 .Build();

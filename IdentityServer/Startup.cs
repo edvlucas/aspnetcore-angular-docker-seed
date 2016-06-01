@@ -71,6 +71,7 @@ namespace Host
                 ClientSecret = "HsnwJri_53zn7VcO1Fm7THBb"
             });
 
+            /// Manually initialize the IdentityServer in order to allow the custom behaviour of MyBaseUrlMiddleware
             app.UseCors(String.Empty);
             app.ConfigureCookies();
             app.UseMiddleware<MyBaseUrlMiddleware>();
@@ -81,6 +82,7 @@ namespace Host
         }
     }
     
+    /// Overrides IdentityServer default behaviour which uses the current host name instead of the Nginx proxied name
     public class MyBaseUrlMiddleware
     {
         private readonly RequestDelegate _next;
@@ -93,14 +95,7 @@ namespace Host
         public async Task Invoke(HttpContext context, IdentityServerContext idsrvContext)
         {
             var request = context.Request;
-
-            // var host = request.Scheme + "://" + request.Host.Value;
-            // idsrvContext.SetHost(host);
-            // idsrvContext.SetBasePath(RemoveTrailingSlash(request.PathBase.Value));
-
-            idsrvContext.SetHost("http://docker");
-            idsrvContext.SetBasePath("");
-
+            idsrvContext.SetHost(Environment.GetEnvironmentVariable("EXTERNAL_URL"));
 
             await _next(context);
         }

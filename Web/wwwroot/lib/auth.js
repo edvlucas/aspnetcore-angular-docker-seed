@@ -1,5 +1,5 @@
 var config = {
-    authority: "http://docker",
+    authority: "/",
     client_id: "js_oidc",
     redirect_uri: window.location.protocol + "//" + window.location.host + "/index.html",
     post_logout_redirect_uri: window.location.protocol + "//" + window.location.host + "/index.html",
@@ -99,7 +99,7 @@ if (window.location.hash) {
         authorize(this.dataset["scope"], this.dataset["type"]);
     });
 });
-document.querySelector(".call").addEventListener("click", callApi, false);
+//document.querySelector(".call").addEventListener("click", callApi, false);
 document.querySelector(".logout").addEventListener("click", logout, false);
 function checkSessionState() {
     mgr.oidcClient.loadMetadataAsync().then(function (meta) {
