@@ -31,7 +31,8 @@ namespace Host.UI.Logout
             HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity());
 
             var vm = new LoggedOutViewModel();
-            return View("LoggedOut", vm);
+            //return View("LoggedOut", vm);
+            return Redirect("~/?logout");
         }
     }
 }

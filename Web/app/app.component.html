@@ -1,5 +1,9 @@
-<h1>My Application</h1>
-<a (click)="login()">Login</a>
+<h1>RC2</h1>
+<div>
+    Welcome : {{mgr?.profile?.email}}
+</div>
+<a href="#" (click)="login()">Login</a>
+<a href="#" (click)="logout()">Logout</a>
 <nav>
     <a [routerLink]="['/']">home</a>
     <a [routerLink]="['/secure']">secure</a>
