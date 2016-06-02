@@ -8833,6 +8833,7 @@ TokenManager.prototype.removeToken = function () {
 }
 
 TokenManager.prototype.redirectForToken = function () {
+    debugger;
     var oidc = this.oidcClient;
     oidc.createTokenRequestAsync().then(function (request) {
         window.location = request.url;

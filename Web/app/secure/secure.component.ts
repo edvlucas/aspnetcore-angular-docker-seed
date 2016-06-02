@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Http } from '@angular/http';
+
 import { OAuthService } from 'angular2-oauth2/oauth-service';
 
 @Component({
@@ -6,16 +8,13 @@ import { OAuthService } from 'angular2-oauth2/oauth-service';
     template: require('./secure.component.html')
 })
 export class SecureComponent implements OnInit {
-    constructor(private oauthService: OAuthService) {
-        var at = this.oauthService.getAccessToken();
-        console.log(at);
+    constructor(private oauthService: OAuthService, private http: Http) {
+    }
 
-        var it = this.oauthService.getIdToken();
-        console.log(it);
-
-        var c = this.oauthService.getIdentityClaims();
-        console.log(c);
-
+    public get name() {
+        let claims = this.oauthService.getIdentityClaims();
+        if (!claims) return null;
+        return claims.given_name;
     }
 
     ngOnInit() {
