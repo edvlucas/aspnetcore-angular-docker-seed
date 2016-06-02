@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HTTP_PROVIDERS, Http } from '@angular/http';
-import { ROUTER_PROVIDERS, ROUTER_DIRECTIVES, Routes } from '@angular/router';
+import { ROUTER_PROVIDERS, ROUTER_DIRECTIVES, Router, Routes } from '@angular/router';
 
 import { OAuthService } from 'angular2-oauth2/oauth-service';
 
@@ -23,7 +23,19 @@ export class AppComponent {
     private client: any;
     private mgr: any;
 
-    constructor(private oauthService: OAuthService, private http: Http) { //private api: ApiService) {
+    constructor(private oauthService: OAuthService, private http: Http, private router : Router) { //private api: ApiService) {
+
+        router.changes.subscribe(next => {
+            console.log('Route changed to');
+            console.log(router);
+            if (router.urlTree._root.children.length > 0) {
+                var segment = router.urlTree._root.children[0].value.segment;
+                console.log(segment);
+                if (segment == "secure" && !this.name) {
+                    this.login();
+                }
+            }
+        });
 
         console.log('App initializing');
         this.oauthService.loginUrl = window.location.protocol + "//" + window.location.host + "/connect/authorize",
@@ -45,7 +57,6 @@ export class AppComponent {
 
     public logout() {
         this.oauthService.logOut();
-
     }
 
     public get name() {
